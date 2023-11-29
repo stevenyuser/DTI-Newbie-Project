@@ -1,9 +1,16 @@
 import * as cheerio from "cheerio";
 import { C2CLocations, OurBusLocations, BusRoute } from "../../common/types";
-import { time12to24 } from "../utils/helper.utils";
+import { time12to24, time12to24Add5 } from "../utils/helper.utils";
 
-// only scrape C2C from Ithaca B Lot to 
-const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, date: Date) => {
+// only scrape C2C for:
+// North Campus to Cornell Club
+// Cornell Club to North Campus
+// manually add others
+//
+// paths:
+// ITH-NYC: North, Sage, B Lot => Cornell Club, F Train, Weill Cornell
+// NYC-ITH: Weill Cornell, F Train, Cornell Club => B Lot, Sage, North
+export const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, date: Date): Promise<BusRoute[]> => {
     
     const dateString = new Intl.DateTimeFormat("en-US", {
         year: "numeric",
@@ -77,7 +84,7 @@ const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, date: Date
         {
             "numSeats": Number(timeSeatString.split(", ")[1].split(" Seats")[0]),
             "startTime": dateString.replace("/", "-").replace("/", "-") + "T" + time12to24(timeSeatString.split(", ")[0]),
-            "endTime": dateString.replace("/", "-").replace("/", "-") + "T",
+            "endTime": dateString.replace("/", "-").replace("/", "-") + "T" + time12to24Add5(timeSeatString.split(", ")[0]),
             "price": 90,
             "busCompany": "Cornell Campus-to-Campus",
             "origin": pickup,
@@ -86,7 +93,7 @@ const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, date: Date
     ))
 }
 
-const scrapeOurBus = async (pickup: OurBusLocations, dropoff: OurBusLocations, date: Date) => {
+export const scrapeOurBus = async (pickup: OurBusLocations, dropoff: OurBusLocations, date: Date): Promise<BusRoute[]> => {
     const dateString = new Intl.DateTimeFormat("en-US", {
         year: "numeric",
         month: "2-digit",

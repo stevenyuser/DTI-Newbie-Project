@@ -58,3 +58,8 @@ export enum OurBusLocations {
     NYC = "New%20York,%20NY", // New York, NY
     FortLee = "Fort%20Lee,%20NJ" // Fort Lee, NJ
 }
+
+export enum GeneralLocations {
+  NYC,
+  Ithaca
+}

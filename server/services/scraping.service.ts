@@ -119,7 +119,7 @@ export const scrapeOurBus = async (pickup: OurBusLocations, dropoff: OurBusLocat
     // console.log(defaultSearch);
 
     const tripData = defaultSearch.searchedRouteList.list;
-    console.log("OurBus Data" + tripData);
+    console.log("OurBus Data: " + tripData);
 
     if(tripData === undefined) {
         return [];

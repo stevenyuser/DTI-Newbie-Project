@@ -1,7 +1,7 @@
 'use client'
 
-import React, {useEffect, useState} from "react"; 
-import Datepicker from "react-tailwindcss-datepicker"; 
+import React, { useEffect, useState } from "react";
+import Datepicker from "react-tailwindcss-datepicker";
 
 import { GeneralLocations, BusRoute } from "../../../common/types";
 
@@ -40,15 +40,17 @@ type CalendarDateType = {
 };
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
   const [busRoutes, setBusRoutes] = useState<BusRoute[]>([]);
 
   const [ithToNyc, setIthToNyc] = useState<boolean>(true);
 
   // have to use startDate because of Picker
-  const [calendarDate, setCalendarDate] = useState<CalendarDateType>({ 
+  const [calendarDate, setCalendarDate] = useState<CalendarDateType>({
     startDate: new Date(Date.now()),
     endDate: new Date(Date.now())
-  }); 
+  });
 
   const handleCalendarDateChange = (unformattedCalendarDate: any) => {
     // console.log("new date:", unformattedCalendarDate);
@@ -60,29 +62,40 @@ export default function Home() {
   };
 
   useEffect(() => {
-    getBusRoutes(ithToNyc ? GeneralLocations.Ithaca: GeneralLocations.NYC, ithToNyc ? GeneralLocations.NYC : GeneralLocations.Ithaca, calendarDate.startDate)
+    findRoutes();
+  }, []);
+
+  const findRoutes = () => {
+    setIsLoading(true);
+
+    getBusRoutes(ithToNyc ? GeneralLocations.Ithaca : GeneralLocations.NYC, ithToNyc ? GeneralLocations.NYC : GeneralLocations.Ithaca, calendarDate.startDate)
       .then((returnedRoutes) => setBusRoutes(returnedRoutes))
-  }, [calendarDate, ithToNyc]);
+      .then(() => setIsLoading(false));
+  }
 
 
   return (
     <main>
-      <div>
-        <Datepicker 
-        useRange={false} 
-        asSingle={true} 
-        value={calendarDate} 
-        onChange={handleCalendarDateChange} 
-        displayFormat={"MM/DD/YYYY"}
-        minDate={new Date(Date.now())}
-        /> 
+      <div className="items-center justify-center">
+        <Datepicker
+          inputClassName={""}
+          containerClassName={"items-center"}
+          useRange={false}
+          asSingle={true}
+          value={calendarDate}
+          onChange={handleCalendarDateChange}
+          displayFormat={"MM/DD/YYYY"}
+          minDate={new Date(Date.now())}
+        />
 
-        <button
-          onClick={() => setIthToNyc(!ithToNyc)}
-        >{ithToNyc ? "ITHACA TO NYC" : "NYC TO ITHACA"}
-        </button>
 
-        {
+        <button onClick={() => setIthToNyc(!ithToNyc)}>{ithToNyc ? "ITHACA TO NYC" : "NYC TO ITHACA"}</button>
+
+        <button onClick={findRoutes} className="p-10">Find Routes</button>
+
+        {isLoading && <p>Loading...</p>}
+
+        {!isLoading &&
           busRoutes.map((busRoute) => {
             return <p>{busRoute.numSeats + busRoute.busCompany}</p>
             // bus route card

@@ -34,7 +34,7 @@ app.post("/api/routes", async (req, res) => {
         });
     } catch (err) {
         res.status(500).json({
-          error: `ERROR: an error occurred in the /api/companies endpoint: ${err}`,
+          error: `ERROR: an error occurred in the /api/routes endpoint: ${err}`,
         });
     }
 })

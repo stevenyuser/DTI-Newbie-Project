@@ -5,12 +5,14 @@ import Datepicker from "react-tailwindcss-datepicker";
 
 import { GeneralLocations, BusRoute } from "../../../common/types";
 
-async function getBusRoutes(origin: GeneralLocations, destination: GeneralLocations, date: Date) {
-  const dateString = new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit"
-  }).format(date);
+async function getBusRoutes(origin: GeneralLocations, destination: GeneralLocations, dateString: string) {
+  // const dateString = new Intl.DateTimeFormat("en-US", {
+  //   year: "numeric",
+  //   month: "2-digit",
+  //   day: "2-digit"
+  // }).format(date);
+
+  console.log("DateString: " + dateString);
 
   const res = await fetch("http://0.0.0.0:8080/api/routes", {
     method: 'POST',
@@ -31,12 +33,11 @@ async function getBusRoutes(origin: GeneralLocations, destination: GeneralLocati
 
   console.log(busRoutes);
 
-  return busRoutes;
-};
+  if(busRoutes === undefined) {
+    return [];
+  }
 
-type CalendarDateType = {
-  startDate: Date;
-  endDate: Date;
+  return busRoutes;
 };
 
 export default function Home() {
@@ -46,18 +47,38 @@ export default function Home() {
 
   const [ithToNyc, setIthToNyc] = useState<boolean>(true);
 
-  // have to use startDate because of Picker
-  const [calendarDate, setCalendarDate] = useState<CalendarDateType>({
-    startDate: new Date(Date.now()),
-    endDate: new Date(Date.now())
+  // have to use startDate to get the singular date because of Datepicker
+  // use dates in MM/DD/YYYY format
+  const [calendarDate, setCalendarDate] = useState<{startDate: string, endDate: string}>({
+    startDate: new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit"
+    }).format(Date.now()),
+    endDate: new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit"
+    }).format(Date.now())
   });
 
   const handleCalendarDateChange = (unformattedCalendarDate: any) => {
-    // console.log("new date:", unformattedCalendarDate);
-    const newCalendarDate: CalendarDateType = {
-      startDate: new Date(unformattedCalendarDate.startDate),
-      endDate: new Date(unformattedCalendarDate.endDate)
+    console.log("unformatted date:", unformattedCalendarDate);
+
+    // format datepicker date to MM/DD/YYYY
+    const newCalendarDate: {startDate: string, endDate: string} = {
+      startDate: new Intl.DateTimeFormat("en-US", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      }).format(new Date(unformattedCalendarDate.startDate).getTime() + 60 * 60 * 24 * 1000),
+      endDate: new Intl.DateTimeFormat("en-US", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      }).format(new Date(unformattedCalendarDate.endDate).getTime() + 60 * 60 * 24 * 1000)
     }
+    console.log("formatted new date:", newCalendarDate);
     setCalendarDate(newCalendarDate);
   };
 
@@ -97,7 +118,7 @@ export default function Home() {
 
         {!isLoading &&
           busRoutes.map((busRoute) => {
-            return <p>{busRoute.numSeats + busRoute.busCompany}</p>
+            return <p>{busRoute.numSeats + busRoute.busCompany + busRoute.startTime}</p>
             // bus route card
           })
         }

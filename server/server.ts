@@ -28,6 +28,7 @@ app.post("/api/routes", async (req, res) => {
 
     try {
         const busRoutes = await getBusRoutes(origin, destination, date);
+        console.log(date);
         res.status(200).send({
           message: `SUCCESS retrieved bus routes for ${origin} to ${destination} on ${date}`,
           data: busRoutes,

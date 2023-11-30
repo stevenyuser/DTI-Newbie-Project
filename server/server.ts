@@ -21,7 +21,7 @@ app.get("/", async (req, res) => {
 
 // bus_route routes
 
-app.get("/api/routes", async (req, res) => {
+app.post("/api/routes", async (req, res) => {
     const origin = req.body.origin as GeneralLocations; // "NYC" or "Ithaca"
     const destination = req.body.destination as GeneralLocations; // "NYC" or "Ithaca"
     const date = new Date(req.body.date);

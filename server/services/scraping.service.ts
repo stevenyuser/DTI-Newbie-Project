@@ -64,11 +64,11 @@ export const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, dat
 
     const $ = cheerio.load(body);
 
-    console.log(body);
+    // console.log(body);
 
     const $selected = $("label.radio");
 
-    console.log("Seats for the date: ");
+    // console.log("Seats for the date: ");
 
     const tripData: string[] = [];
 
@@ -107,19 +107,19 @@ export const scrapeOurBus = async (pickup: OurBusLocations, dropoff: OurBusLocat
 
     const body = await response.text();
 
-    console.log(body);
+    // console.log(body);
 
     var defaultSearchString = body.substring(body.indexOf("{", body.indexOf("var defaultSearch = '") + 1), body.indexOf("';", body.indexOf("var defaultSearch = '") + 1));
     
-    console.log(defaultSearchString);
+    // console.log(defaultSearchString);
 
-    console.log();
+    // console.log();
 
     const defaultSearch = JSON.parse(defaultSearchString);
-    console.log(defaultSearch);
+    // console.log(defaultSearch);
 
     const tripData = defaultSearch.searchedRouteList.list;
-    console.log(tripData);
+    // console.log(tripData);
 
     return tripData.map(({ available_seat, src_stop_name, dest_stop_name, src_landmark, dest_landmark, travel_date, src_stop_eta, dest_stop_eta, pass_amount, booking_fee, facility_fee }): BusRoute => (
         {

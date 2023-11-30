@@ -4,7 +4,7 @@ import { scrapeC2C, scrapeOurBus } from "../services/scraping.service";
 export const getBusRoutes = async (origin: GeneralLocations, destination: GeneralLocations, date: Date) => {
     let ourbusData, c2cData: BusRoute[];
 
-    if(origin === GeneralLocations.Ithaca && destination == GeneralLocations.NYC) { // ITH -> NYC
+    if(origin === GeneralLocations.Ithaca as GeneralLocations && destination === GeneralLocations.NYC) { // ITH -> NYC
         let [ourbusDataFortLee, ourbusDataNYC] = await Promise.all([
             scrapeOurBus(OurBusLocations.Ithaca, OurBusLocations.FortLee, date),
             scrapeOurBus(OurBusLocations.Ithaca, OurBusLocations.NYC, date)

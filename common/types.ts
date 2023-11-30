@@ -60,6 +60,6 @@ export enum OurBusLocations {
 }
 
 export enum GeneralLocations {
-  NYC,
-  Ithaca
+  NYC = "NYC",
+  Ithaca = "Ithaca"
 }

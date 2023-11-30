@@ -1,11 +1,10 @@
 import * as cheerio from "cheerio";
 import { C2CLocations, OurBusLocations, BusRoute } from "../../common/types";
-import { time12to24, time12to24Add5 } from "../utils/helper.utils";
+import { time12to24, time12to24Add5, stringifyC2CLocation } from "../utils/helper.utils";
 
 // only scrape C2C for:
 // North Campus to Cornell Club
 // Cornell Club to North Campus
-// manually add others
 //
 // paths:
 // ITH-NYC: North, Sage, B Lot => Cornell Club, F Train, Weill Cornell
@@ -18,7 +17,7 @@ export const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, dat
         day: "2-digit"
     }).format(date);
 
-    const response = await fetch('https://c2cbus.ipp.cornell.edu/mobile/', {
+    const response = await fetch('https://c2cbus.ipp.cornell.edu/mobile/?a=mobile', {
         method: 'POST',
         headers: {
             'authority': 'c2cbus.ipp.cornell.edu',
@@ -26,10 +25,10 @@ export const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, dat
             'accept-language': 'en-US,en;q=0.9,und;q=0.8',
             'cache-control': 'no-cache',
             'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-            'cookie': '_ga=GA1.2.2009361319.1696800467; _ga_VKE65X7QYM=GS1.2.1699445916.6.1.1699447216.0.0.0; _hp2_id.3001039959=%7B%22userId%22%3A%225517641778191662%22%2C%22pageviewId%22%3A%224596943607911114%22%2C%22sessionId%22%3A%22850780294395342%22%2C%22identity%22%3A%22uu-2-2dbef03bc8e47a3a4da24e8bb514859c22cd9810850560f7103b4dde288c80ef-GTDkw0Eah6uohqhXZ7zSk8TH1zJG9mbz7wTVI1Si%22%2C%22trackerVersion%22%3A%224.0%22%2C%22identityField%22%3Anull%2C%22isIdentified%22%3A1%7D; ASP.NET_SessionId=le3qyw3iyqflsbwj1acfa0k4; mode=true',
+            'cookie': '_ga=GA1.2.2009361319.1696800467; _ga_VKE65X7QYM=GS1.2.1699445916.6.1.1699447216.0.0.0; _hp2_id.3001039959=%7B%22userId%22%3A%225517641778191662%22%2C%22pageviewId%22%3A%224596943607911114%22%2C%22sessionId%22%3A%22850780294395342%22%2C%22identity%22%3A%22uu-2-2dbef03bc8e47a3a4da24e8bb514859c22cd9810850560f7103b4dde288c80ef-GTDkw0Eah6uohqhXZ7zSk8TH1zJG9mbz7wTVI1Si%22%2C%22trackerVersion%22%3A%224.0%22%2C%22identityField%22%3Anull%2C%22isIdentified%22%3A1%7D; ASP.NET_SessionId=drjxsnqxca5xfqc0cdu1ku22; mode=true',
             'dnt': '1',
             'origin': 'https://c2cbus.ipp.cornell.edu',
-            'referer': 'https://c2cbus.ipp.cornell.edu/mobile/',
+            'referer': 'https://c2cbus.ipp.cornell.edu/mobile/?a=mobile',
             'sec-ch-ua': '"Google Chrome";v="119", "Chromium";v="119", "Not?A_Brand";v="24"',
             'sec-ch-ua-mobile': '?0',
             'sec-ch-ua-platform': '"macOS"',
@@ -44,11 +43,11 @@ export const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, dat
             'ctl00$cph$smg': 'ctl00$cph$smg|ctl00$cph$btnDepCal',
             'ctl00$cph$ddlTripType': 'One Way',
             'ctl00$cph$ddlQty': '1',
-            'ctl00$cph$ddlDepPickLocation': pickup,
-            'ctl00$cph$ddlDepDropLocation': dropoff,
+            'ctl00$cph$ddlDepPickLocation': '7,16',
+            'ctl00$cph$ddlDepDropLocation': '8,19',
             'ctl00$cph$txtDepDate': '',
-            'ctl00$cph$flDepDate': dateString,
-            'vs_gid': '0391d3c6-6722-43b2-8c0b-e555d488d0c9',
+            'ctl00$cph$flDepDate': '12/1/2023',
+            'vs_gid': '3abf5e65-6463-4fea-b7fd-8aa93d66c3b2',
             '__EVENTTARGET': '',
             '__EVENTARGUMENT': '',
             '__LASTFOCUS': '',
@@ -58,6 +57,8 @@ export const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, dat
             'ctl00$cph$btnDepCal': 'Search'
         })
     });
+    
+    
 
     const body = await response.text();
 
@@ -87,8 +88,8 @@ export const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, dat
             "endTime": dateString.replace("/", "-").replace("/", "-") + "T" + time12to24Add5(timeSeatString.split(", ")[0]),
             "price": 90,
             "busCompany": "Cornell Campus-to-Campus",
-            "origin": pickup,
-            "destination": dropoff,
+            "origin": stringifyC2CLocation(pickup),
+            "destination": stringifyC2CLocation(dropoff),
         }
     ))
 }
@@ -122,13 +123,13 @@ export const scrapeOurBus = async (pickup: OurBusLocations, dropoff: OurBusLocat
 
     return tripData.map(({ available_seat, src_stop_name, dest_stop_name, src_landmark, dest_landmark, travel_date, src_stop_eta, dest_stop_eta, pass_amount, booking_fee, facility_fee }): BusRoute => (
         {
-            "numSeats": available_seat,
-            "startTime": travel_date + "T" + src_stop_eta,
-            "endTime": travel_date + "T" + dest_stop_eta,
-            "price": pass_amount + booking_fee + facility_fee,
+            "numSeats": Number(available_seat),
+            "startTime": String(travel_date + "T" + src_stop_eta),
+            "endTime": String(travel_date + "T" + dest_stop_eta),
+            "price": Number(pass_amount + booking_fee + facility_fee),
             "busCompany": "OurBus",
-            "origin": src_stop_name,
-            "destination": dest_stop_name,
+            "origin": String(src_stop_name),
+            "destination": String(dest_stop_name),
         }
     ))
 }

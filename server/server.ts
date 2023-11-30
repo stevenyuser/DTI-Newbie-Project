@@ -1,11 +1,12 @@
 import express, { Express } from "express"
 import cors from "cors"
-import { db } from './firebase';
 
 import { getAllCompanies, getCompany } from "./controllers/company.controller";
 import { addReview, getReviewsByCompany, deleteReview } from "./controllers/review.controller";
+import { getBusRoutes } from "./controllers/bus_route.controller";
 import { Review } from "./../common/types";
 
+import { GeneralLocations } from "./../common/types";
 
 const app: Express = express()
 const port = 8080
@@ -19,6 +20,26 @@ app.get("/", async (req, res) => {
 })
 
 // bus_route routes
+
+app.get("/api/routes", async (req, res) => {
+    const origin = req.body.origin as GeneralLocations; // "NYC" or "Ithaca"
+    const destination = req.body.destination as GeneralLocations; // "NYC" or "Ithaca"
+    const date = new Date(req.body.date);
+
+    try {
+        const busRoutes = await getBusRoutes(origin, destination, date);
+        res.status(200).send({
+          message: `SUCCESS retrieved bus routes for ${origin} to ${destination} on ${date}`,
+          data: busRoutes,
+        });
+    } catch (err) {
+        res.status(500).json({
+          error: `ERROR: an error occurred in the /api/companies endpoint: ${err}`,
+        });
+    }
+})
+
+// company routes
 
 app.get("/api/companies", async (req, res) => {
     try {
@@ -58,10 +79,6 @@ app.get("/api/companies/:company", async (req, res) => {
         });
     }
 });
-
-
-// company routes
-
 
 // review routes
 

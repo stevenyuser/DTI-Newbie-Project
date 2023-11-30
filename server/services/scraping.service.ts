@@ -78,10 +78,10 @@ export const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, dat
         tripData.push($(elem).text());
     });
 
-    console.log(tripData);
+    console.log("C2C Data: " + tripData);
 
     // timeSeatString format XX:XX AM, XX Seats
-    return tripData.map((timeSeatString): BusRoute => (
+    return tripData?.map((timeSeatString): BusRoute => (
         {
             "numSeats": Number(timeSeatString.split(", ")[1].split(" Seats")[0]),
             "startTime": dateString.replace("/", "-").replace("/", "-") + "T" + time12to24(timeSeatString.split(", ")[0]),
@@ -119,10 +119,14 @@ export const scrapeOurBus = async (pickup: OurBusLocations, dropoff: OurBusLocat
     // console.log(defaultSearch);
 
     const tripData = defaultSearch.searchedRouteList.list;
-    // console.log(tripData);
+    console.log("OurBus Data" + tripData);
 
-    return tripData.map(({ available_seat, src_stop_name, dest_stop_name, src_landmark, dest_landmark, travel_date, src_stop_eta, dest_stop_eta, pass_amount, booking_fee, facility_fee }): BusRoute => (
-        {
+    if(tripData === undefined) {
+        return [];
+    }
+
+    return tripData.map(({ available_seat, src_stop_name, dest_stop_name, src_landmark, dest_landmark, travel_date, src_stop_eta, dest_stop_eta, pass_amount, booking_fee, facility_fee }): BusRoute => {
+        return {
             "numSeats": Number(available_seat),
             "startTime": String(travel_date + "T" + src_stop_eta),
             "endTime": String(travel_date + "T" + dest_stop_eta),
@@ -131,5 +135,5 @@ export const scrapeOurBus = async (pickup: OurBusLocations, dropoff: OurBusLocat
             "origin": String(src_stop_name),
             "destination": String(dest_stop_name),
         }
-    ))
+    })
 }

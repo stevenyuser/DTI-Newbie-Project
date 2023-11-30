@@ -81,7 +81,7 @@ export const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, dat
     console.log("C2C Data: " + tripData);
 
     // timeSeatString format XX:XX AM, XX Seats
-    return tripData?.map((timeSeatString): BusRoute => (
+    return tripData.map((timeSeatString): BusRoute => (
         {
             "numSeats": Number(timeSeatString.split(", ")[1].split(" Seats")[0]),
             "startTime": dateString.replace("/", "-").replace("/", "-") + "T" + time12to24(timeSeatString.split(", ")[0]),

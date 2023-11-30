@@ -24,5 +24,9 @@ export const getBusRoutes = async (origin: GeneralLocations, destination: Genera
 
     const busRoutes: BusRoute[] = ourbusData.concat(c2cData);
 
+    if (busRoutes === undefined) {
+        return [];
+    }
+    
     return busRoutes;
 };

@@ -5,6 +5,9 @@ import Datepicker from "react-tailwindcss-datepicker";
 
 import { GeneralLocations, BusRoute } from "../../../common/types";
 
+import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
+import BusRouteCard from "@/components/BusRouteCard";
+
 async function getBusRoutes(origin: GeneralLocations, destination: GeneralLocations, dateString: string) {
   // const dateString = new Intl.DateTimeFormat("en-US", {
   //   year: "numeric",
@@ -33,10 +36,12 @@ async function getBusRoutes(origin: GeneralLocations, destination: GeneralLocati
 
   console.log(busRoutes);
 
-  if(busRoutes === undefined) {
+  if (busRoutes === undefined) {
     return [];
   }
+  console.log("!!!busRoutes: ");
 
+  console.log(busRoutes);
   return busRoutes;
 };
 
@@ -49,7 +54,7 @@ export default function Home() {
 
   // have to use startDate to get the singular date because of Datepicker
   // use dates in MM/DD/YYYY format
-  const [calendarDate, setCalendarDate] = useState<{startDate: string, endDate: string}>({
+  const [calendarDate, setCalendarDate] = useState<{ startDate: string, endDate: string }>({
     startDate: new Intl.DateTimeFormat("en-US", {
       year: "numeric",
       month: "2-digit",
@@ -66,7 +71,7 @@ export default function Home() {
     console.log("unformatted date:", unformattedCalendarDate);
 
     // format datepicker date to MM/DD/YYYY
-    const newCalendarDate: {startDate: string, endDate: string} = {
+    const newCalendarDate: { startDate: string, endDate: string } = {
       startDate: new Intl.DateTimeFormat("en-US", {
         year: "numeric",
         month: "2-digit",
@@ -94,33 +99,67 @@ export default function Home() {
       .then(() => setIsLoading(false));
   }
 
-
   return (
     <main>
-      <div className="items-center justify-center">
-        <Datepicker
-          inputClassName={""}
-          containerClassName={"items-center"}
-          useRange={false}
-          asSingle={true}
-          value={calendarDate}
-          onChange={handleCalendarDateChange}
-          displayFormat={"MM/DD/YYYY"}
-          minDate={new Date(Date.now())}
-        />
+      <div className="flex flex-col items-center bg-gray-200 space-y-12 overflow-y-auto flex-1 h-screen">
+
+        <h1 className="inline-flex font-serifPro text-4xl pt-20 font-bold">CUSoon!</h1>
+
+        <p className="text-md mt-2 pt-3 font-medium text-base-content/80">Connecting Cornell to the world.</p>
 
 
-        <button onClick={() => setIthToNyc(!ithToNyc)}>{ithToNyc ? "ITHACA TO NYC" : "NYC TO ITHACA"}</button>
+        {/* search bar */}
+        <span className="relative z-10 inline-flex shadow-sm rounded-md">
 
-        <button onClick={findRoutes} className="p-10">Find Routes</button>
+
+          <button onClick={() => setIthToNyc(!ithToNyc)} className={"relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-2xl font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-red-500"}>
+
+            <span className="relative flex flex-row items-center space-x-2">
+              <p>{ithToNyc ? "Ithaca " : "NYC "}</p>
+              <ArrowsRightLeftIcon className="h-6 w-6" />
+              <p>{ithToNyc ? " NYC" : " Ithaca"}</p>
+            </span>
+
+          </button>
+
+
+          <Datepicker
+            inputClassName={"-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-2xl font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-red-500"}
+            containerClassName={"relative mt-0 z-20"}
+            useRange={false}
+            asSingle={true}
+            value={calendarDate}
+            onChange={handleCalendarDateChange}
+            displayFormat={"MM/DD/YYYY"}
+            minDate={new Date(Date.now())}
+            popoverDirection="down"
+            primaryColor="red"
+          />
+
+          <button onClick={findRoutes} className="-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-red-500 text-2xl font-medium text-white hover:bg-red-500 focus:z-10 focus:outline-none focus:ring-1 focus:ring-red-500 focus:border-red-500">Find Routes</button>
+
+
+        </span>
+
 
         {isLoading && <p>Loading...</p>}
 
-        {!isLoading &&
-          busRoutes.map((busRoute) => {
-            return <p>{busRoute.numSeats + busRoute.busCompany + busRoute.startTime}</p>
-            // bus route card
-          })
+        <div className="pb-20 w-1/2">
+          <ul role="list" className="space-y-3">
+            {!isLoading &&
+              busRoutes.map((busRoute) => {
+                return <BusRouteCard busRoute={busRoute} />
+                // bus route card
+              })
+            }
+          </ul>
+        </div>
+
+        {!isLoading && busRoutes.length === 0 &&
+          <span className="z-1 relative block w-1/2 border-2 border-gray-300 border-dashed rounded-lg p-12 text-center">
+            <p>No routes found!</p>
+            <p>Please select another date</p>
+          </span>
         }
       </div>
     </main>

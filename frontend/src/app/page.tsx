@@ -129,7 +129,7 @@ export default function Home() {
 
   const findAllAverageRatings = () => {
     getAllAverageRatings()
-      .then((ratings) => setAverageRatings(ratings))
+      .then((ratings) => setAverageRatings(ratings));
   }
   
   return (

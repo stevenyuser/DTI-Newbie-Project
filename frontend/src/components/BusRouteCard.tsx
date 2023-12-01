@@ -1,6 +1,6 @@
 import { BusRoute, BusCompanyEnum } from "../../../common/types";
 import { ArrowLongRightIcon, CalendarIcon, ClockIcon, TicketIcon } from "@heroicons/react/24/outline";
-import { formatDate, formatTime, urlCompanyFormat } from "@/utils/helper.utils";
+import { companyNameFromId, formatDate, formatTime, urlCompanyFormat } from "@/utils/helper.utils";
 import Link from "next/link";
 import Rating from '@mui/material/Rating';
 
@@ -47,12 +47,12 @@ export default function BusRouteCard({ busRoute, rating }: BusRouteCardProps) {
 
                 <div className="flex flex-col justify-center items-center space-x-2 space-y-2 border-l border-dashed w-52">
                     
-                    <p className="text-xl font-bold">{busRoute.busCompany}</p>
+                    <p className="text-xl font-bold">{companyNameFromId(busRoute.busCompanyId)}</p>
 
                     <Rating name="read-only" value={rating} readOnly precision={0.5} />
                     
-                    <Link className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" href={`/companies/${urlCompanyFormat(busRoute.busCompany as BusCompanyEnum)}`}>
-                        Browse {busRoute.busCompany}
+                    <Link className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" href={`/companies/${busRoute.busCompanyId}`}>
+                        Browse {companyNameFromId(busRoute.busCompanyId)}
                     </Link>
 
                 </div>

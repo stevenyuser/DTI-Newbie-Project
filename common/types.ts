@@ -3,7 +3,15 @@
 export enum BusCompanyEnum {
     C2C = "Cornell C2C",
     OurBus = "OurBus",
-    FlixBus = "FlixBus"
+    FlixBus = "FlixBus",
+    MegaBus = "MegaBus",
+}
+
+export enum BusCompanyIdEnum {
+    C2C = "C2C",
+    OurBus = "OurBus",
+    FlixBus = "FlixBus",
+    MegaBus = "MegaBus",
 }
 
 export type BusRoute = {
@@ -11,13 +19,13 @@ export type BusRoute = {
     startTime: string; // yyyy-MM-dd`T`HH:mm:ss - 2023-11-23T01:30:20
     endTime: string;
     price: number;
-    busCompany: string;
+    busCompanyId: string;
     origin: string;
     destination: string;
 };
 
 export type Review = {
-  busCompany: string;
+  busCompanyId: string;
 
   // optional info
   rideDate?: string;
@@ -36,13 +44,14 @@ export type Review = {
 };
 
 export type BusCompany = {
+  id: number;
   name: string;
   websiteUrl: string;
   description: string;
   averageRating: number;
+  highlights: string[];
+  numReviews: number;
 };
-
-
 
 export enum C2CLocations {
     IthacaNorthCampus = "7,16", // Ithaca, North Campus

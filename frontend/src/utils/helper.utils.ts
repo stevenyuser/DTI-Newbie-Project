@@ -1,4 +1,4 @@
-import { BusCompanyEnum } from "../../../common/types";
+import { BusCompanyEnum, BusCompanyIdEnum } from "../../../common/types";
 
 export const formatDate = (date: Date) => {
     console.log("date: " + date)
@@ -24,5 +24,16 @@ export const urlCompanyFormat = (company: BusCompanyEnum) => {
             return "OurBus";
         case BusCompanyEnum.FlixBus:
             return "FlixBus";
+    }
+}
+
+export const companyNameFromId = (id: string) => {
+    switch(id as BusCompanyIdEnum) {
+        case BusCompanyIdEnum.C2C:
+            return BusCompanyEnum.C2C;
+        case BusCompanyIdEnum.OurBus:
+            return BusCompanyEnum.OurBus;
+        case BusCompanyIdEnum.FlixBus:
+            return BusCompanyEnum.FlixBus;
     }
 }

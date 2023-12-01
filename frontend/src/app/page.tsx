@@ -3,14 +3,14 @@
 import React, { useEffect, useState } from "react";
 import Datepicker from "react-tailwindcss-datepicker";
 
-import { GeneralLocations, BusRoute, BusCompanyEnum } from "../../../common/types";
+import { GeneralLocations, BusRoute, BusCompanyEnum, BusCompanyIdEnum } from "../../../common/types";
 
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import BusRouteCard from "@/components/BusRouteCard";
 import { urlCompanyFormat } from "@/utils/helper.utils";
 
-async function getAverageRating(busCompany: BusCompanyEnum) {
-  const res = await fetch(`http://0.0.0.0:8080/api/companies/${urlCompanyFormat(busCompany)}/averageRating/`);
+async function getAverageRating(busCompanyId: BusCompanyIdEnum) {
+  const res = await fetch(`http://0.0.0.0:8080/api/companies/${busCompanyId}/averageRating/`);
   const data = await res.json();
   const averageRating: number = data.data;
 
@@ -18,18 +18,19 @@ async function getAverageRating(busCompany: BusCompanyEnum) {
     return 0;
   }
 
-  console.log(urlCompanyFormat(busCompany) + "'s rating: " + averageRating);
+  console.log(busCompanyId + "'s rating: " + averageRating);
 
   return averageRating;
 }
 
 async function getAllAverageRatings(): Promise<{ [key: string]: number }> {
-  const busCompanies: BusCompanyEnum[] = [BusCompanyEnum.C2C, BusCompanyEnum.OurBus, BusCompanyEnum.FlixBus]
+  const busCompanies: BusCompanyIdEnum[] = [BusCompanyIdEnum.C2C, BusCompanyIdEnum.OurBus, BusCompanyIdEnum.FlixBus, BusCompanyIdEnum.MegaBus];
 
   const averageRatings = {
-    "C2C": await getAverageRating(BusCompanyEnum.C2C),
-    "OurBus": await getAverageRating(BusCompanyEnum.OurBus),
-    "FlixBus": await getAverageRating(BusCompanyEnum.FlixBus)
+    "C2C": await getAverageRating(BusCompanyIdEnum.C2C),
+    "OurBus": await getAverageRating(BusCompanyIdEnum.OurBus),
+    "FlixBus": await getAverageRating(BusCompanyIdEnum.FlixBus),
+    "MegaBus": await getAverageRating(BusCompanyIdEnum.MegaBus),
   }
 
   console.log(averageRatings);
@@ -183,7 +184,7 @@ export default function Home() {
               busRoutes.map((busRoute) => {
                 // force reload of BusRouteCard component when averageRatings changes, uses key to force update
                 // source: https://stackoverflow.com/questions/38892672/react-why-child-component-doesnt-update-when-prop-changes 
-                return <BusRouteCard key={averageRatings[urlCompanyFormat(busRoute.busCompany as BusCompanyEnum)]} busRoute={busRoute} rating={averageRatings[urlCompanyFormat(busRoute.busCompany as BusCompanyEnum)]}/>
+                return <BusRouteCard key={averageRatings[busRoute.busCompanyId]} busRoute={busRoute} rating={averageRatings[busRoute.busCompanyId]}/>
               })
             }
           </ul>

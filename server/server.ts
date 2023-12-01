@@ -56,47 +56,47 @@ app.get("/api/companies", async (req, res) => {
     }
 });
 
-app.get("/api/companies/:company", async (req, res) => {
-    const companyName: string = req.params.company;
+app.get("/api/companies/:companyId", async (req, res) => {
+    const companyId: string = req.params.companyId;
 
     try {
-        const company = await getCompany(companyName);
+        const company = await getCompany(companyId);
 
         if (company === null) {
             res
             .status(404)
             .send({
-              error: `ERROR: company with companyName: ${companyName} not found in Firestore`,
+              error: `ERROR: company with companyId: ${companyId} not found in Firestore`,
             });
         } else {
             res.status(200).send({
-              message: `SUCCESS retrieved company with companyName: ${companyName} from the companies collection in Firestore`,
+              message: `SUCCESS retrieved company with companyId: ${companyId} from the companies collection in Firestore`,
               data: company,
             });
         }
     } catch (err) {
         res.status(500).json({
-          error: `ERROR: an error occurred in the /api/companies/:company endpoint: ${err}`,
+          error: `ERROR: an error occurred in the /api/companies/:companyId endpoint: ${err}`,
         });
     }
 });
 
 
-app.get("/api/companies/:company/averageRating", async (req, res) => {
-    const companyName: string = req.params.company;
+app.get("/api/companies/:companyId/averageRating", async (req, res) => {
+    const companyId: string = req.params.companyId;
 
     try {
-        const averageRating = await getAverageRating(companyName);
+        const averageRating = await getAverageRating(companyId);
 
         if (averageRating === null) {
             res
             .status(404)
             .send({
-              error: `ERROR: average rating of company with companyName: ${companyName} not found in Firestore`,
+              error: `ERROR: average rating of company with companyName: ${companyId} not found in Firestore`,
             });
         } else {
             res.status(200).send({
-              message: `SUCCESS retrieved average rating of company with companyName: ${companyName} from the companies collection in Firestore`,
+              message: `SUCCESS retrieved average rating of company with companyName: ${companyId} from the companies collection in Firestore`,
               data: averageRating,
             });
         }
@@ -112,14 +112,14 @@ app.get("/api/companies/:company/averageRating", async (req, res) => {
 // add review
 app.post("/api/reviews/create", async (req, res) => {
     console.log("[POST] entering '/reviews/create' endpoint");
-        const { busCompany, rideDate, ridePrice, rideOrigin, rideDestination, title, rating, reviewText,
+        const { busCompanyId, rideDate, ridePrice, rideOrigin, rideDestination, title, rating, reviewText,
             likes, userName, netId, reviewDateTime } = req.body;
         // rideDate is in "YYYY-MM-DD" format
         // dateTimeOfPosting is in standard ISO format: "yyyy-MM-dd'T;HH:mm:ss"
         
         // console.log(rideDate);
         const review: Review = {
-            busCompany,
+            busCompanyId,
             rideDate,
             ridePrice,
             rideOrigin,
@@ -148,22 +148,22 @@ app.post("/api/reviews/create", async (req, res) => {
 
 
 // get reviews by company
-app.get("/api/reviews/:company/all", async (req, res) => {
-    const companyName: string = req.params.company;
+app.get("/api/reviews/:companyId/all", async (req, res) => {
+    const companyId: string = req.params.companyId;
 
     try {
-        const company = await getCompany(companyName);
+        const company = await getCompany(companyId);
 
         if (company === null) {
             res
             .status(404)
             .send({
-              error: `ERROR: company with companyName: ${companyName} not found in Firestore`,
+              error: `ERROR: company with companyName: ${companyId} not found in Firestore`,
             });
         } else {
-            let reviews = await getReviewsByCompany(companyName);
+            let reviews = await getReviewsByCompany(companyId);
             res.status(200).send({
-              message: `SUCCESS retrieved reviews associated wiht companyName: ${companyName} from the reviews collection in Firestore`,
+              message: `SUCCESS retrieved reviews associated wiht companyName: ${companyId} from the reviews collection in Firestore`,
               data: reviews, 
             });
             console.log(reviews);

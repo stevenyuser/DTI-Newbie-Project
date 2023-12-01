@@ -17,8 +17,8 @@ export const getAllCompanies = async () => {
     return companies;
 };
 
-export const getCompany = async (companyName: string) => {
-    const companyDoc = await companyCollectionRef.doc(companyName).get();
+export const getCompany = async (companyId: string) => {
+    const companyDoc = await companyCollectionRef.doc(companyId).get();
     if (!companyDoc.exists) {
         console.log('No such document!');
         return null;
@@ -28,8 +28,8 @@ export const getCompany = async (companyName: string) => {
 };
 
 
-export const getAverageRating = async (companyName: string) => {
-    const companyDoc = await companyCollectionRef.doc(companyName).get();
+export const getAverageRating = async (companyId: string) => {
+    const companyDoc = await companyCollectionRef.doc(companyId).get();
     if (!companyDoc.exists) {
         console.log('No such document!');
         return null;

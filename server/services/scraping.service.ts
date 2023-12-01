@@ -88,7 +88,7 @@ export const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, dat
             "startTime": date.toISOString().slice(0, 10) + "T" + time12to24(timeSeatString.split(", ")[0]),
             "endTime": date.toISOString().slice(0, 10) + "T" + time12to24Add5(timeSeatString.split(", ")[0]),
             "price": 90,
-            "busCompany": "Cornell C2C",
+            "busCompanyId": "C2C",
             "origin": stringifyC2CLocation(pickup),
             "destination": stringifyC2CLocation(dropoff),
         }
@@ -132,7 +132,7 @@ export const scrapeOurBus = async (pickup: OurBusLocations, dropoff: OurBusLocat
             "startTime": String(travel_date + "T" + src_stop_eta),
             "endTime": String(travel_date + "T" + dest_stop_eta),
             "price": Number(pass_amount + booking_fee + facility_fee),
-            "busCompany": "OurBus",
+            "busCompanyId": "OurBus",
             "origin": String(src_stop_name),
             "destination": String(dest_stop_name),
         }

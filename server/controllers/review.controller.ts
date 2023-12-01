@@ -12,8 +12,8 @@ export const addReview = async (review: Review) => {
 };
 
 
-export const getReviewsByCompany = async (company_name : string) => {
-    const snapshot = await reviewCollectionRef.where("busCompany", "==", company_name).get();
+export const getReviewsByCompany = async (companyId: string) => {
+    const snapshot = await reviewCollectionRef.where("busCompanyId", "==", companyId).get();
     let reviews = {};
 
     snapshot.forEach((doc) => {

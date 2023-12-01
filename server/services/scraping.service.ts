@@ -47,7 +47,7 @@ export const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, dat
             'ctl00$cph$ddlDepDropLocation': dropoff,
             'ctl00$cph$txtDepDate': '',
             'ctl00$cph$flDepDate': dateString,
-            'vs_gid': 'a1e38914-d9e8-493e-8e5b-6cacd0158cc8',
+            'vs_gid': '6cb63ea5-aadb-4da5-b86e-401b1c0ed0d7',
             '__EVENTTARGET': '',
             '__EVENTARGUMENT': '',
             '__LASTFOCUS': '',
@@ -56,7 +56,8 @@ export const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, dat
             '__ASYNCPOST': 'true',
             'ctl00$cph$btnDepCal': 'Search'
         })
-    });    
+    });
+    
     
     
 

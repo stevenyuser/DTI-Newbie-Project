@@ -6,13 +6,14 @@ import Rating from '@mui/material/Rating';
 
 interface BusRouteCardProps {
     busRoute: BusRoute;
+    rating: number;
 }
 
-export default function BusRouteCard({ busRoute }: BusRouteCardProps) {
+export default function BusRouteCard({ busRoute, rating }: BusRouteCardProps) {
     return (
         <div className='w-full rounded-xl px-4 py-6 md:px-6 md:py-7 bg-white'>
 
-            <div className="flex flex-row justify-between">
+            <div className="flex flex-row justify-between space-x-10">
 
                 <div className="flex flex-col justify-center space-x-2 space-y-2">
 
@@ -44,13 +45,16 @@ export default function BusRouteCard({ busRoute }: BusRouteCardProps) {
                     </div>
                 </div>
 
-                <div className="flex flex-col justify-center items-center space-x-2 space-y-2">
+                <div className="flex flex-col justify-center items-center space-x-2 space-y-2 border-l border-dashed w-52">
                     
-                    <p className="text-lg">{busRoute.busCompany}</p>
+                    <p className="text-xl font-bold">{busRoute.busCompany}</p>
 
-                    <Rating name="read-only" value={4.5} readOnly precision={0.5} />
+                    <Rating name="read-only" value={rating} readOnly precision={0.5} />
                     
-                    <Link href={`/companies/${urlCompanyFormat(busRoute.busCompany as BusCompanyEnum)}`}>LINK</Link>
+                    <Link className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" href={`/companies/${urlCompanyFormat(busRoute.busCompany as BusCompanyEnum)}`}>
+                        Browse {busRoute.busCompany}
+                    </Link>
+
                 </div>
 
             </div>

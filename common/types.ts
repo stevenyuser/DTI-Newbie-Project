@@ -1,7 +1,7 @@
 // date format // yyyy-MM-dd`T`HH:mm:ss - 2023-11-23T01:30:20
 
 export enum BusCompanyEnum {
-    C2C = "Cornell Campus-to-Campus",
+    C2C = "Cornell C2C",
     OurBus = "OurBus",
     FlixBus = "FlixBus"
 }

@@ -57,10 +57,6 @@ export const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, dat
             'ctl00$cph$btnDepCal': 'Search'
         })
     });
-    
-    
-    
-    
 
     const body = await response.text();
 

@@ -116,7 +116,7 @@ export default function Home() {
 
   useEffect(() => {
     findRoutes();
-    findAverageRatings();
+    findAllAverageRatings();
   }, []);
 
   const findRoutes = () => {
@@ -127,9 +127,9 @@ export default function Home() {
       .then(() => setIsLoading(false));
   }
 
-  const findAverageRatings = () => {
+  const findAllAverageRatings = () => {
     getAllAverageRatings()
-      .then((ratings) => setAverageRatings(ratings));
+      .then((ratings) => setAverageRatings(ratings))
   }
   
   return (
@@ -138,7 +138,7 @@ export default function Home() {
 
         <h1 className="inline-flex font-serifPro text-4xl pt-20 font-bold">CUSoon!</h1>
 
-        <p className="text-md mt-2 pt-3 font-medium text-base-content/80">Connecting Cornell to the world.</p>
+        <p className="text-md mt-2 pt-3 font-medium text-base-content/80">Connecting Cornell to the world 🌎</p>
 
 
         {/* search bar */}
@@ -181,8 +181,9 @@ export default function Home() {
           <ul role="list" className="space-y-3">
             {!isLoading &&
               busRoutes.map((busRoute) => {
-                return <BusRouteCard busRoute={busRoute} rating={averageRatings[urlCompanyFormat(busRoute.busCompany as BusCompanyEnum)]}/>
-                // bus route card
+                // force reload of BusRouteCard component when averageRatings changes, uses key to force update
+                // source: https://stackoverflow.com/questions/38892672/react-why-child-component-doesnt-update-when-prop-changes 
+                return <BusRouteCard key={averageRatings[urlCompanyFormat(busRoute.busCompany as BusCompanyEnum)]} busRoute={busRoute} rating={averageRatings[urlCompanyFormat(busRoute.busCompany as BusCompanyEnum)]}/>
               })
             }
           </ul>

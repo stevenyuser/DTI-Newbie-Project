@@ -19,10 +19,10 @@ export const formatTime = (date: Date) => {
 export const urlCompanyFormat = (company: BusCompanyEnum) => {
     switch(company) {
         case BusCompanyEnum.C2C:
-            return "c2c";
+            return "C2C";
         case BusCompanyEnum.OurBus:
-            return "ourbus";
+            return "OurBus";
         case BusCompanyEnum.FlixBus:
-            return "flixbus";
+            return "FlixBus";
     }
 }

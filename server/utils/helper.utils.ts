@@ -47,6 +47,6 @@ export const stringifyC2CLocation = (location: C2CLocations): string => {
         case C2CLocations.NYCFTrain:
             return "New York City, F-Train to Tech Campus (3rd Ave & 64th St)";
         case C2CLocations.NYCCornellClub:
-            return "New York City, Cornell Club";
+            return "NYC, Cornell Club";
     }
 }

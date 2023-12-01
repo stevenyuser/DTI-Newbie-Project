@@ -1,3 +1,5 @@
+import { BusCompanyEnum } from "../../../common/types";
+
 export const formatDate = (date: Date) => {
     console.log("date: " + date)
     return new Intl.DateTimeFormat("en-US", {
@@ -12,4 +14,15 @@ export const formatTime = (date: Date) => {
         hour: "2-digit",
         minute: "2-digit"
     }).format(date);
+}
+
+export const urlCompanyFormat = (company: BusCompanyEnum) => {
+    switch(company) {
+        case BusCompanyEnum.C2C:
+            return "c2c";
+        case BusCompanyEnum.OurBus:
+            return "ourbus";
+        case BusCompanyEnum.FlixBus:
+            return "flixbus";
+    }
 }

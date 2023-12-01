@@ -43,11 +43,11 @@ export const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, dat
             'ctl00$cph$smg': 'ctl00$cph$smg|ctl00$cph$btnDepCal',
             'ctl00$cph$ddlTripType': 'One Way',
             'ctl00$cph$ddlQty': '1',
-            'ctl00$cph$ddlDepPickLocation': '7,16',
-            'ctl00$cph$ddlDepDropLocation': '8,19',
+            'ctl00$cph$ddlDepPickLocation': pickup,
+            'ctl00$cph$ddlDepDropLocation': dropoff,
             'ctl00$cph$txtDepDate': '',
-            'ctl00$cph$flDepDate': '12/1/2023',
-            'vs_gid': '3abf5e65-6463-4fea-b7fd-8aa93d66c3b2',
+            'ctl00$cph$flDepDate': dateString,
+            'vs_gid': 'a1e38914-d9e8-493e-8e5b-6cacd0158cc8',
             '__EVENTTARGET': '',
             '__EVENTARGUMENT': '',
             '__LASTFOCUS': '',
@@ -56,7 +56,7 @@ export const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, dat
             '__ASYNCPOST': 'true',
             'ctl00$cph$btnDepCal': 'Search'
         })
-    });
+    });    
     
     
 
@@ -84,8 +84,8 @@ export const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, dat
     return tripData.map((timeSeatString): BusRoute => (
         {
             "numSeats": Number(timeSeatString.split(", ")[1].split(" Seats")[0]),
-            "startTime": dateString.replace("/", "-").replace("/", "-") + "T" + time12to24(timeSeatString.split(", ")[0]),
-            "endTime": dateString.replace("/", "-").replace("/", "-") + "T" + time12to24Add5(timeSeatString.split(", ")[0]),
+            "startTime": date.toISOString().slice(0, 10) + "T" + time12to24(timeSeatString.split(", ")[0]),
+            "endTime": date.toISOString().slice(0, 10) + "T" + time12to24Add5(timeSeatString.split(", ")[0]),
             "price": 90,
             "busCompany": "Cornell Campus-to-Campus",
             "origin": stringifyC2CLocation(pickup),

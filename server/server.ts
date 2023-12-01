@@ -1,7 +1,7 @@
 import express, { Express } from "express"
 import cors from "cors"
 
-import { getAllCompanies, getCompany } from "./controllers/company.controller";
+import { getAllCompanies, getCompany, getAverageRating } from "./controllers/company.controller";
 import { addReview, getReviewsByCompany, deleteReview } from "./controllers/review.controller";
 import { getBusRoutes } from "./controllers/bus_route.controller";
 import { Review } from "./../common/types";
@@ -80,6 +80,32 @@ app.get("/api/companies/:company", async (req, res) => {
         });
     }
 });
+
+
+app.get("/api/companies/:company/averageRating", async (req, res) => {
+    const companyName: string = req.params.company;
+
+    try {
+        const averageRating = await getAverageRating(companyName);
+
+        if (averageRating === null) {
+            res
+            .status(404)
+            .send({
+              error: `ERROR: average rating of company with companyName: ${companyName} not found in Firestore`,
+            });
+        } else {
+            res.status(200).send({
+              message: `SUCCESS retrieved average rating of company with companyName: ${companyName} from the companies collection in Firestore`,
+              data: averageRating,
+            });
+        }
+    } catch (err) {
+        res.status(500).json({
+          error: `ERROR: an error occurred in the /api/companies/:company/averageRating endpoint: ${err}`,
+        });
+    }
+})
 
 // review routes
 
@@ -165,6 +191,9 @@ app.delete("/api/reviews/:review_id/delete", async (req, res) => {
         });
     }
 });
+
+
+
 
 // listening on port
 app.listen(port, () => {

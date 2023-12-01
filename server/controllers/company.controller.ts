@@ -26,3 +26,15 @@ export const getCompany = async (companyName: string) => {
         return companyDoc.data() as BusCompany;
     }
 };
+
+
+export const getAverageRating = async (companyName: string) => {
+    const companyDoc = await companyCollectionRef.doc(companyName).get();
+    if (!companyDoc.exists) {
+        console.log('No such document!');
+        return null;
+    } else {
+        const company = companyDoc.data() as BusCompany;
+        return company.averageRating;
+    }
+}

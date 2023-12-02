@@ -3,15 +3,15 @@
 export enum BusCompanyEnum {
     C2C = "Cornell C2C",
     OurBus = "OurBus",
-    FlixBus = "FlixBus",
-    MegaBus = "MegaBus",
+    Flixbus = "Flixbus",
+    Megabus = "Megabus",
 }
 
 export enum BusCompanyIdEnum {
     C2C = "C2C",
     OurBus = "OurBus",
-    FlixBus = "FlixBus",
-    MegaBus = "MegaBus",
+    Flixbus = "Flixbus",
+    Megabus = "Megabus",
 }
 
 export type BusRoute = {

@@ -28,10 +28,10 @@ export type Review = {
   busCompanyId: string;
 
   // optional info
-  rideDate?: string;
-  ridePrice?: number;
-  rideOrigin?: string;
-  rideDestination?: string;
+  rideDate: string | null;
+  ridePrice: number | null;
+  rideOrigin: string | null;
+  rideDestination: string | null;
 
   title: string;
   rating: number;

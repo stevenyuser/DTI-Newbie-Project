@@ -44,19 +44,19 @@ export default function CompanyPage({ params }: any) {
     return (
         <main>
             {!validCompanies.includes(params.id as string) &&
-                <div>
+                <div className="flex flex-col items-center bg-gray-200 pt-32">
                     <h1>Invalid URL</h1>
                 </div>
             }
 
             {validCompanies.includes(params.id as string) && isLoading &&
-                <div>
-                    <h1>Loading...</h1>
+                <div className="flex flex-col items-center bg-gray-200 pt-32">
+                    <h1 className="">Loading...</h1>
                 </div>
             }
 
             {validCompanies.includes(params.id as string) && !isLoading && (busCompany===null || busCompany === undefined) &&
-                <div>
+                <div className="flex flex-col items-center bg-gray-200 pt-32">
                     <h1>Error</h1>
                 </div>
             }

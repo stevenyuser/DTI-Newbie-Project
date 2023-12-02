@@ -24,13 +24,13 @@ async function getAverageRating(busCompanyId: BusCompanyIdEnum) {
 }
 
 async function getAllAverageRatings(): Promise<{ [key: string]: number }> {
-  const busCompanies: BusCompanyIdEnum[] = [BusCompanyIdEnum.C2C, BusCompanyIdEnum.OurBus, BusCompanyIdEnum.FlixBus, BusCompanyIdEnum.MegaBus];
+  const busCompanies: BusCompanyIdEnum[] = [BusCompanyIdEnum.C2C, BusCompanyIdEnum.OurBus, BusCompanyIdEnum.Flixbus, BusCompanyIdEnum.Megabus];
 
   const averageRatings = {
     "C2C": await getAverageRating(BusCompanyIdEnum.C2C),
     "OurBus": await getAverageRating(BusCompanyIdEnum.OurBus),
-    "FlixBus": await getAverageRating(BusCompanyIdEnum.FlixBus),
-    "MegaBus": await getAverageRating(BusCompanyIdEnum.MegaBus),
+    "Flixbus": await getAverageRating(BusCompanyIdEnum.Flixbus),
+    "Megabus": await getAverageRating(BusCompanyIdEnum.Megabus),
   }
 
   console.log(averageRatings);

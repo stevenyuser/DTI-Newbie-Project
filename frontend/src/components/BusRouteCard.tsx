@@ -35,10 +35,12 @@ export default function BusRouteCard({ busRoute, rating }: BusRouteCardProps) {
                         <p>{formatTime(new Date(busRoute.endTime))}</p>
                     </div>
 
-                    <div className="text-sm flex flex-row items-center space-x-1 ml-1">
-                        <TicketIcon className='h-5 w-5' />
-                        <p>{busRoute.numSeats} seats remaining</p>
-                    </div>
+                    {busRoute.numSeats !== -1 &&
+                        <div className="text-sm flex flex-row items-center space-x-1 ml-1">
+                            <TicketIcon className='h-5 w-5' />
+                            <p>{busRoute.numSeats} seats remaining</p>
+                        </div>
+                    }
 
                     <div className="text-xl font-bold flex flex-row items-center space-x-1 ml-1">
                         <p>${busRoute.price}</p>
@@ -46,11 +48,11 @@ export default function BusRouteCard({ busRoute, rating }: BusRouteCardProps) {
                 </div>
 
                 <div className="flex flex-col justify-center items-center space-x-2 space-y-2 border-l border-dashed w-52">
-                    
+
                     <p className="text-xl font-bold">{companyNameFromId(busRoute.busCompanyId)}</p>
 
                     <Rating name="read-only" value={rating} readOnly precision={0.5} />
-                    
+
                     <Link className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" href={`/companies/${busRoute.busCompanyId}`}>
                         Browse {companyNameFromId(busRoute.busCompanyId)}
                     </Link>

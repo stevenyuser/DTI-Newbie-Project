@@ -10,12 +10,12 @@ export default function CreateReviewPage() {
 
     const searchParams = useSearchParams();
 
-    const busCompany = searchParams.get("busCompany");
+    const busCompany = searchParams.get("busCompany") ?? "C2C";
 
     const [rating, setRating] = useState<number>(0);
 
     const [review, setReview] = useState<Review>({
-        busCompanyId: busCompany ?? "C2C",
+        busCompanyId: busCompany,
         userName: "",
         title: "",
         reviewText: "",

@@ -34,12 +34,12 @@ export default function Companies() {
 
     return (
         <main>
-            <div className="flex flex-col items-center bg-gray-200 space-y-12 overflow-y-auto flex-1 h-screen">
+            <div className="flex flex-col items-center bg-gray-200 space-y-12 overflow-y-auto flex-1">
 
                 <h1 className="inline-flex font-serifPro text-3xl pt-20 font-bold">Browse Bus Companies</h1>
                 <p className="text-md mt-2 font-medium text-base-content/80">Compare bus services, prices, and reviews to find the provider that fits your needs 🚌</p>
 
-                {isLoading && <p>Loading...</p>}
+                {isLoading && <p className="pb-64">Loading...</p>}
 
                 <div className="pb-20 w-1/2">
                     <ul role="list" className="space-y-3">

@@ -19,7 +19,7 @@ const validCompanies = ["OurBus", "C2C", "Flixbus", "Megabus"];
 // }
 
 async function getBusCompanyData(companyId: string): Promise<BusCompany | null> {
-    const res = await fetch(`http://0.0.0.0:8080/api/companies/${companyId}`);    
+    const res = await fetch(`http://0.0.0.0:8080/api/companies/${companyId}`);
     const data = await res.json();
 
     const busCompany: BusCompany = data.data as BusCompany;
@@ -33,13 +33,13 @@ async function getBusCompanyData(companyId: string): Promise<BusCompany | null> 
 }
 
 // async function setBusCompanyReview() {
-    
+
 // }
 
 export default function CompanyPage({ params }: any) {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [busCompany, setBusCompany] = useState<BusCompany | null>(null);
-    
+
     useEffect(() => {
         getBusCompanyData(params.id)
             .then((returnedBusCompany) => setBusCompany(returnedBusCompany))
@@ -56,17 +56,17 @@ export default function CompanyPage({ params }: any) {
 
             {validCompanies.includes(params.id as string) && isLoading &&
                 <div className="flex flex-col items-center bg-gray-200 pt-32">
-                    <h1 className="">Loading...</h1>
+                    <p className="pb-96">Loading...</p>
                 </div>
             }
 
-            {validCompanies.includes(params.id as string) && !isLoading && (busCompany===null || busCompany === undefined) &&
+            {validCompanies.includes(params.id as string) && !isLoading && (busCompany === null || busCompany === undefined) &&
                 <div className="flex flex-col items-center bg-gray-200 pt-32">
                     <h1>Error</h1>
                 </div>
             }
 
-            {validCompanies.includes(params.id as string) && !isLoading && !(busCompany===null || busCompany === undefined) &&
+            {validCompanies.includes(params.id as string) && !isLoading && !(busCompany === null || busCompany === undefined) &&
                 <div className="">
                     <BusCompanyHeader company={busCompany as BusCompany} />
                     <BusCompanyHighlights company={busCompany as BusCompany} />

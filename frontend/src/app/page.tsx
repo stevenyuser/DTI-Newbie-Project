@@ -134,9 +134,9 @@ export default function Home() {
   
   return (
     <main>
-      <div className="flex flex-col items-center bg-gray-200 space-y-12 overflow-y-auto flex-1 h-screen">
+      <div className="flex flex-col items-center bg-gray-200 space-y-12 overflow-y-auto flex-1">
 
-        <h1 className="inline-flex font-serifPro text-4xl pt-20 font-bold">CUSoon!</h1>
+        <h1 className="inline-flex font-serifPro text-8xl pt-20 font-bold">CUSoon!</h1>
 
         <p className="text-md mt-2 pt-3 font-medium text-base-content/80">Connecting Cornell to the world 🌎</p>
 
@@ -175,7 +175,7 @@ export default function Home() {
         </span>
 
 
-        {isLoading && <p>Loading...</p>}
+        {isLoading && <p className="pb-24">Loading...</p>}
 
         <div className="pb-20 w-1/2">
           <ul role="list" className="space-y-3">

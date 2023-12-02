@@ -25,7 +25,14 @@ export default function BusCompanyCard({ company }: BusCompanyCardProps) {
                             <div className="text-sm flex flex-row items-center space-x-1 ml-1">
                                 <Rating name="read-only" value={company.averageRating} readOnly precision={0.5} />
                                 <p className="font-semibold">({Number(company.averageRating).toFixed(1)})</p>
-                                <p>{company.numReviews} reviews</p>
+                                {
+                                    company.numReviews===1 && 
+                                    <p>{company.numReviews} review</p>
+                                }
+                                {
+                                    company.numReviews!==1 && 
+                                    <p>{company.numReviews} reviews</p>
+                                }
                             </div>
 
                             <div className="text-sm flex flex-row items-center space-x-1 ml-1">

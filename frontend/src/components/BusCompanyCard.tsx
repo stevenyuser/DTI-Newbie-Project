@@ -36,6 +36,10 @@ export default function BusCompanyCard({ company }: BusCompanyCardProps) {
 
                         </div>
 
+                        <div className="w-48">
+                            <img className="cover-full" src={`/assets/${company.id}_logo.png`} alt="" />
+                        </div>
+
                     </div>
 
                 </div>

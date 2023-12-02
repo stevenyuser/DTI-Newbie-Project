@@ -51,7 +51,7 @@ export const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, dat
             'ctl00$cph$ddlDepDropLocation': '8,19',
             'ctl00$cph$txtDepDate': '',
             'ctl00$cph$flDepDate': dateString,
-            'vs_gid': '1f8d1c8a-01b1-46f3-b126-95f845cee72a',
+            'vs_gid': 'f98cc5e4-0c58-4311-adde-ace78666a102',
             '__EVENTTARGET': '',
             '__EVENTARGUMENT': '',
             '__LASTFOCUS': '',
@@ -61,6 +61,7 @@ export const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, dat
             'ctl00$cph$btnDepCal': 'Search'
         })
     });
+    
     
 
     const body = await response.text();

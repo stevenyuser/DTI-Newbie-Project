@@ -68,6 +68,11 @@ export enum OurBusLocations {
     FortLee = "Fort%20Lee,%20NJ" // Fort Lee, NJ
 }
 
+export enum MegabusLocations {
+  Ithaca = "511",
+  NYC = "123"
+}
+
 export enum GeneralLocations {
   NYC = "NYC",
   Ithaca = "Ithaca"

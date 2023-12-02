@@ -1,5 +1,5 @@
 import * as cheerio from "cheerio";
-import { C2CLocations, OurBusLocations, BusRoute } from "../../common/types";
+import { C2CLocations, OurBusLocations, BusRoute, MegabusLocations } from "../../common/types";
 import { time12to24, time12to24Add5, stringifyC2CLocation } from "../utils/helper.utils";
 
 // only scrape C2C for:
@@ -134,4 +134,36 @@ export const scrapeOurBus = async (pickup: OurBusLocations, dropoff: OurBusLocat
             "destination": String(dest_stop_name),
         }
     })
+}
+
+export const scrapeMegabus = async (pickup: MegabusLocations, dropoff: MegabusLocations, date: Date): Promise<BusRoute[]> => {
+    const dateString = new Intl.DateTimeFormat("fr-CA", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+    }).format(date);
+
+    const url = `https://us.megabus.com/journey-planner/api/journeys?originId=${pickup}&destinationId=${dropoff}&departureDate=${dateString}&totalPassengers=1&concessionCount=0&nusCount=0&otherDisabilityCount=0&wheelchairSeated=0&pcaCount=0&days=1`
+
+    const response = await fetch(url);
+
+    const data = await response.json();
+
+    const journeys = data.journeys;
+
+    if (journeys === undefined) {
+        return [];
+    }
+
+    return journeys.map(({ departureDateTime, arrivalDateTime, price, origin, destination }): BusRoute => (
+        {
+            "numSeats": -1,
+            "startTime": departureDateTime,
+            "endTime": arrivalDateTime,
+            "price": price,
+            "busCompanyId": "Megabus",
+            "origin": pickup,
+            "destination": dropoff,
+        }
+    ));
 }

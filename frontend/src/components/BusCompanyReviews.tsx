@@ -68,7 +68,7 @@ export default function BusCompanyReviews({ company }: BusCompanyReviewsProps) {
                             {!isLoading &&
                                 Object.values(reviews).map((review) => {
                                     return <ReviewCard review={review} />
-                                    3
+                                    
                                 })
                             }
                         </ul>

@@ -162,8 +162,8 @@ export const scrapeMegabus = async (pickup: MegabusLocations, dropoff: MegabusLo
             "endTime": arrivalDateTime,
             "price": price,
             "busCompanyId": "Megabus",
-            "origin": pickup,
-            "destination": dropoff,
+            "origin": origin.cityName,
+            "destination": destination.cityName,
         }
     ));
 }

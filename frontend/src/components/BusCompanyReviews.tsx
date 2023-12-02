@@ -51,7 +51,7 @@ export default function BusCompanyReviews({ company }: BusCompanyReviewsProps) {
                         </div>
 
                         <div>
-                        <Link className="inline-flex items-center p-4 border border-gray-300 shadow-sm text-lg leading-4 font-medium rounded-md text-white bg-red-500 hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" href="/reviews/new">
+                        <Link className="inline-flex items-center p-4 border border-gray-300 shadow-sm text-lg leading-4 font-medium rounded-md text-white bg-red-500 hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" href={`/reviews/new?busCompany=${company.id}`}>
                             Write a review
                         </Link>
                         </div>

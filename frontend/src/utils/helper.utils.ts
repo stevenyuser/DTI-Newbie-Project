@@ -16,24 +16,15 @@ export const formatTime = (date: Date) => {
     }).format(date);
 }
 
-export const urlCompanyFormat = (company: BusCompanyEnum) => {
-    switch(company) {
-        case BusCompanyEnum.C2C:
-            return "C2C";
-        case BusCompanyEnum.OurBus:
-            return "OurBus";
-        case BusCompanyEnum.FlixBus:
-            return "FlixBus";
-    }
-}
-
 export const companyNameFromId = (id: string) => {
     switch(id as BusCompanyIdEnum) {
         case BusCompanyIdEnum.C2C:
             return BusCompanyEnum.C2C;
         case BusCompanyIdEnum.OurBus:
             return BusCompanyEnum.OurBus;
-        case BusCompanyIdEnum.FlixBus:
-            return BusCompanyEnum.FlixBus;
+        case BusCompanyIdEnum.Megabus:
+            return BusCompanyEnum.Megabus;
+        case BusCompanyIdEnum.Flixbus:
+            return BusCompanyEnum.Flixbus;
     }
 }

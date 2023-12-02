@@ -10,12 +10,12 @@ export default function CreateReviewPage() {
 
     const searchParams = useSearchParams();
 
-    const busCompany = searchParams.get("busCompany") ?? "C2C";
+    const busCompany = searchParams.get("busCompany");
 
     const [rating, setRating] = useState<number>(0);
 
     const [review, setReview] = useState<Review>({
-        busCompanyId: "C2C",
+        busCompanyId: busCompany ?? "C2C",
         userName: "",
         title: "",
         reviewText: "",
@@ -31,7 +31,7 @@ export default function CreateReviewPage() {
         // source: https://stackoverflow.com/questions/71961539/router-push-is-not-working-as-expected-nextjs
         e.preventDefault()
 
-        console.log(review);
+        console.log("CREATING REVIEW: " + review);
 
         await fetch("http://0.0.0.0:8080/api/reviews/create", {
             method: "POST",

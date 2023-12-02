@@ -1,12 +1,24 @@
 // @ts-nocheck
 
-import { BusCompanyEnum, Review } from "../../common/types";
+import { BusCompany, Review } from "../../common/types";
 import { db } from "../firebase";
 
+const companyCollectionRef = db.collection("bus_companies");
 const reviewCollectionRef = db.collection('reviews');
 
-
 export const addReview = async (review: Review) => {
+    const companyDoc = await companyCollectionRef.doc(review.busCompanyId).get();
+    if (!companyDoc.exists) {
+        console.log('No such document!');
+        return null;
+    } else {
+        const company = companyDoc.data() as BusCompany;
+        companyCollectionRef.doc(review.busCompanyId).update({
+                            "numReviews": company.numReviews + 1,
+                            "averageRating": (company.averageRating * company.numReviews + review.rating) / (company.numReviews + 1)
+                        })
+    }
+
     const newDoc = reviewCollectionRef.doc();
     return await newDoc.set(review);
 };

@@ -41,7 +41,7 @@ export default function BusCompanyHeader({ company }: BusCompanyHeaderProps) {
 
 
           <div className="pt-16">
-            <a href={company.websiteUrl} target="_blank" className="h-12 inline-flex items-center px-6 py-3 border border-white shadow-sm text-base font-medium rounded-md text-white opacity-100 hover:bg-red-300 hover:bg-opacity-60 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            <a href={company.websiteUrl} target="_blank" className="h-12 inline-flex items-center px-6 py-3 border border-white shadow-sm text-base font-medium rounded-md text-white opacity-100 hover:bg-white hover:bg-opacity-40 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
               Visit Site
               <ArrowTopRightOnSquareIcon className="ml-3 -mr-1 h-5 w-5" />
             </a>

@@ -13,7 +13,7 @@ const navigation = [
   { name: 'Companies', href: '/companies', current: false },
 ]
 
-function classNames(...classes) {
+function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ')
 }
 

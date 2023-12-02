@@ -127,9 +127,7 @@ app.post("/api/reviews/create", async (req, res) => {
             title,
             rating,
             reviewText,
-            likes,
             userName,
-            netId,
             reviewDateTime
     };
 

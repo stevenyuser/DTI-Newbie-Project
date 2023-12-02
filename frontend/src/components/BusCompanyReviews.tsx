@@ -43,9 +43,17 @@ export default function BusCompanyReviews({ company }: BusCompanyReviewsProps) {
                 {isLoading && <p>Loading reviews...</p>}
 
                 <div className="space-y-10">
-                    <div className="space-y-2">
-                        <h2 className="text-4xl font-extrabold text-gray-900">Reviews</h2>
-                        <p className="font-medium text-gray-900">Read user reviews from the Cornell community.</p>
+                    <div className="flex flex-row justify-between items-center">
+                        <div className="space-y-2">
+                            <h2 className="text-4xl font-extrabold text-gray-900">Reviews</h2>
+                            <p className="font-medium text-gray-900">Read user reviews from the Cornell community.</p>
+                        </div>
+
+                        <div>
+                        <button className="inline-flex items-center p-4 border border-gray-300 shadow-sm text-lg leading-4 font-medium rounded-md text-white bg-red-500 hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                            Write a review
+                        </button>
+                        </div>
                     </div>
 
                     {!isLoading && Object.values(reviews).length === 0 &&
@@ -58,8 +66,9 @@ export default function BusCompanyReviews({ company }: BusCompanyReviewsProps) {
                         <ul role="list" className="space-y-3 py-12">
                             {!isLoading &&
                                 Object.values(reviews).map((review) => {
-                                    return <ReviewCard review={review}/>
-3                                })
+                                    return <ReviewCard review={review} />
+                                    3
+                                })
                             }
                         </ul>
                     </div>

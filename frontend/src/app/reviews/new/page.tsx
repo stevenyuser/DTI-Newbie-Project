@@ -8,6 +8,8 @@ import Rating from "@mui/material/Rating";
 export default function CreateReviewPage() {
     const router = useRouter();
 
+    const [rating, setRating] = useState<number>(0);
+
     const [review, setReview] = useState<Review>({
         busCompanyId: "C2C",
         userName: "",
@@ -158,6 +160,29 @@ export default function CreateReviewPage() {
                                 <h3 className="text-lg leading-6 font-medium text-gray-900">Review Info</h3>
                             </div>
                             <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+
+                                <div className="sm:col-span-2">
+                                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                                        Rating
+                                    </label>
+                                    <div className="mt-1">
+                                        <Rating
+                                            name="simple-controlled"
+                                            value={rating}
+                                            onChange={(event, newValue) => {
+
+                                                let newReview = review;
+                                                newReview.rating = newValue ?? 0;
+                                                console.log(newReview);
+                                                setReview(newReview);
+                                                setRating(newValue ?? 0);
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="sm:col-span-4" />
+
                                 <div className="sm:col-span-2">
                                     <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                                         Name
@@ -230,7 +255,7 @@ export default function CreateReviewPage() {
                         </button>
 
 
-                        
+
                     </div>
                 </form>
             </div>

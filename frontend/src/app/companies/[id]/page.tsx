@@ -3,6 +3,7 @@
 import { Metadata } from "next"
 import BusCompanyHeader from "@/components/BusCompanyHeader";
 import BusCompanyHighlights from "@/components/BusCompanyHighlights";
+import BusCompanyReviews from "@/components/BusCompanyReviews";
 import { useEffect, useState } from "react";
 import { BusCompany } from "../../../../../common/types";
 
@@ -30,6 +31,10 @@ async function getBusCompanyData(companyId: string): Promise<BusCompany | null> 
     console.log("bus company: " + JSON.stringify(busCompany));
     return busCompany;
 }
+
+// async function setBusCompanyReview() {
+    
+// }
 
 export default function CompanyPage({ params }: any) {
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -65,6 +70,8 @@ export default function CompanyPage({ params }: any) {
                 <div className="">
                     <BusCompanyHeader company={busCompany as BusCompany} />
                     <BusCompanyHighlights company={busCompany as BusCompany} />
+                    <div className="w-3/4 mx-auto py-10 border-t border-gray-300" />
+                    <BusCompanyReviews company={busCompany as BusCompany} />
                 </div>
             }
 

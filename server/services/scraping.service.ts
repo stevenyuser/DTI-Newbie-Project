@@ -10,7 +10,7 @@ import { time12to24, time12to24Add5, stringifyC2CLocation } from "../utils/helpe
 // ITH-NYC: North, Sage, B Lot => Cornell Club, F Train, Weill Cornell
 // NYC-ITH: Weill Cornell, F Train, Cornell Club => B Lot, Sage, North
 export const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, date: Date): Promise<BusRoute[]> => {
-    
+
     const dateString = new Intl.DateTimeFormat("en-US", {
         year: "numeric",
         month: "2-digit",
@@ -47,16 +47,16 @@ export const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, dat
             'ctl00$cph$smg': 'ctl00$cph$smg|ctl00$cph$btnDepCal',
             'ctl00$cph$ddlTripType': 'One Way',
             'ctl00$cph$ddlQty': '1',
-            'ctl00$cph$ddlDepPickLocation': pickup,
-            'ctl00$cph$ddlDepDropLocation': dropoff,
+            'ctl00$cph$ddlDepPickLocation': '7,16',
+            'ctl00$cph$ddlDepDropLocation': '8,19',
             'ctl00$cph$txtDepDate': '',
             'ctl00$cph$flDepDate': dateString,
-            'vs_gid': '3759d050-dd95-4f4d-a00f-b5aa95e6c719',
+            'vs_gid': '1f8d1c8a-01b1-46f3-b126-95f845cee72a',
             '__EVENTTARGET': '',
             '__EVENTARGUMENT': '',
             '__LASTFOCUS': '',
             '__VIEWSTATE': '',
-            '__EVENTVALIDATION': '/wEdADuvVXD1oYELeveMr0vHCmYPXlcZM3fJelJ3UaDytxq3X+x5+zYa4z4HSCtrwSmTVooPsuf3hIpmkd4ZsPazLknVHmqTjAM8d+cYiIGDlL77UzgSelOshyKZzoc2yCkQK1FszKGBMKCjmoROaNRe7bbmF/KPRjsDpmXNIP1/5sUonYEpGKTZ1ALQp8cZ0zF//lyke2nKHnq75v94QSu3VOJjWuKcKzSZemme1zQ4EKI+k2DUQGvIKfMtG+4Dil/lLcK6CmifZ5sTugccxYZH4dI1OQagh1nVYy9dAxOciHDvVazv/FLRrmkvAB9pnHTqlvaWwtu6pl4b/ODkuXLvS4e2tGKSBpeLm5mi3QVL1usfPks1jfHUZmp4BxGhwjXrl7ohMo/8LncK1NgfvyJlEkTBORKqfMkC3IWWHC+rMyMqm1FZ6ddayosAM/quJc9ngG9WszwNJnBMu9h9ZMGfJMoQ6Q1vb2R6Y9bI3NRhzNt6MdLsWZl+aUUHziaY7TcfRvMrsS7NQqeLxP7GC+pSep++txPLL1718RBkI+pvQKsrp+aXlclW0wPOgzdKPISBkoU1GiFfBJhQoZ1zdNWUASEQ/8B+7Xm0fmk+PtvNiimsvfH61VViSSQ5xsfpw4dyKeM0RDibeb8dzMb6eS/aivLcXwfPN91jfYZIjys/c2Q61/OoB/TRH7UlBHag/H0g0kP3R7QAAOS4zCFP6LNsh1C8uja4exlV/Zqe/BPxcI1cDgJXRZK4hpwwYYbZ4Zh1Se+f47DGZLCXkq/vhKEYuG7FBupZHrB/l0ljVRr4yPxIm7BLDEyzxPlZu2oIJy1X+CEU6krX8hl7QkNu3BhwLn8CLzaHyD8mJ/Wsao8kck2WK6+Pt8WTM8BE9H6JZfR6sIHhU1nQQRocByy6N9XpBC0s0C6VwHU91PxJCDXe+PVrlXcjwxbqRax5w9dn5Kck8Xu5rZHlI10pL7ty3yGM755RlKC3PXgLWM4NXAOSNKxKRZCAypCCc1wkmaYVjM/5L8BLRXK1DByHQAzipDxDQlkrS8z+sPz2R4wD/KmSCD4vRq11tTnT/cfE7UaDUnqYa8pVpxyfEfaGXVH9zM4BI319y9EvlqvUPnlhbDwl31EcOlWyiYFud15/+fgmalHGCob1cycZ2uEe93d2irjFIEsqABq6r+n3DGBljhrk5alZemP6YILCfwaArdDSvPKkQmPt6Ob2Y52XBzeEdqQK3NoTuMPEwNYo3Tl+iUQj2QbgvocX/GnJZHKOsi3skRU3LpPkXuCzlT7APIH4gGgXxYuM',
+            '__EVENTVALIDATION': '/wEdADuvVXD1oYELeveMr0vHCmYPVrM8DSZwTLvYfWTBnyTKEOkNb29kemPWyNzUYczbejHS7FmZfmlFB84mmO03H0bzK7EuzUKni8T+xgvqUnqfvrcTyy9e9fEQZCPqb0CrK6fml5XJVtMDzoM3SjyEgZKFNRohXwSYUKGdc3TVlAEhEP/Afu15tH5pPj7bzYoprL3x+tVVYkkkOcbH6cOHcinjNEQ4m3m/HczG+nkv2ory3F8HzzfdY32GSI8rP3NkOtfzqAf00R+1JQR2oPx9INJD90e0AADkuMwhT+izbIdQvLo2uHsZVf2anvwT8XCNXA4CV0WSuIacMGGG2eGYdUnvn+OwxmSwl5Kv74ShGLhuxQbqWR6wf5dJY1Ua+Mj8SJuwSwxMs8T5WbtqCCctV/ghFOpK1/IZe0JDbtwYcC5/Ai82h8g/Jif1rGqPJHJNliuvj7fFkzPARPR+iWX0erCB4VNZ0EEaHAcsujfV6QQtLNAulcB1PdT8SQg13vj1a5V3I8MW6kWsecPXZ+SnJPF7ua2R5SNdKS+7ct8hjO+eUZSgtz14C1jODVwDkjSsSkWQgMqQgnNcJJmmFYzP+S/AS0VytQwch0AM4qQ8Q0JZK0vM/rD89keMA/ypkgg+L0atdbU50/3HxO1Gg1J6mGvKVaccnxH2hl1R/czOASN9fcvRL5ar1D55YWw8Jd9RHDpVsomBbndef/n4JmpRxgqG9XMnGdrhHvd3doq4xSBLKgAauq/p9wxgZY4a5OWpWXpj+mCCwn8GgK3Q0rzypEJjXlcZM3fJelJ3UaDytxq3X+x5+zYa4z4HSCtrwSmTVooPsuf3hIpmkd4ZsPazLknVHmqTjAM8d+cYiIGDlL77UzgSelOshyKZzoc2yCkQK1FszKGBMKCjmoROaNRe7bbmF/KPRjsDpmXNIP1/5sUonYEpGKTZ1ALQp8cZ0zF//lyke2nKHnq75v94QSu3VOJjWuKcKzSZemme1zQ4EKI+k2DUQGvIKfMtG+4Dil/lLcK6CmifZ5sTugccxYZH4dI1OQagh1nVYy9dAxOciHDvVazv/FLRrmkvAB9pnHTqlvaWwtu6pl4b/ODkuXLvS4e2tGKSBpeLm5mi3QVL1usfPks1jfHUZmp4BxGhwjXrl7ohMo/8LncK1NgfvyJlEkTBORKqfMkC3IWWHC+rMyMqm1FZ6ddayosAM/quJc9ngG/t6Ob2Y52XBzeEdqQK3NoTuMPEwNYo3Tl+iUQj2Qbgvt3jQ+0Vc9pBDbJr5GxQ6na48XB6KTTOFkTNIGGOC0iH',
             '__ASYNCPOST': 'true',
             'ctl00$cph$btnDepCal': 'Search'
         })
@@ -76,7 +76,7 @@ export const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, dat
     const tripData: string[] = [];
 
     $selected.each((i, elem) => {
-        console.log($(elem).text());
+        console.log("elem: " + $(elem).text());
 
         tripData.push($(elem).text());
     });
@@ -113,7 +113,7 @@ export const scrapeOurBus = async (pickup: OurBusLocations, dropoff: OurBusLocat
     // console.log(body);
 
     var defaultSearchString = body.substring(body.indexOf("{", body.indexOf("var defaultSearch = '") + 1), body.indexOf("';", body.indexOf("var defaultSearch = '") + 1));
-    
+
     // console.log(defaultSearchString);
 
     // console.log();
@@ -124,7 +124,7 @@ export const scrapeOurBus = async (pickup: OurBusLocations, dropoff: OurBusLocat
     const tripData = defaultSearch.searchedRouteList.list;
     console.log("OurBus Data: " + tripData);
 
-    if(tripData === undefined) {
+    if (tripData === undefined) {
         return [];
     }
 
@@ -192,7 +192,7 @@ export const scrapeFlixbus = async (pickup: FlixbusLocations, dropoff: FlixbusLo
 
     const results: any = Object.values(data.trips[0].results);
 
-    if(results === undefined || cities === undefined) {
+    if (results === undefined || cities === undefined) {
         return [];
     }
 
@@ -201,8 +201,8 @@ export const scrapeFlixbus = async (pickup: FlixbusLocations, dropoff: FlixbusLo
 
         return {
             "numSeats": available.seats,
-            "startTime": departure.date.substring(0,19),
-            "endTime": arrival.date.substring(0,19),
+            "startTime": departure.date.substring(0, 19),
+            "endTime": arrival.date.substring(0, 19),
             "price": total,
             "busCompanyId": "Flixbus",
             "origin": cities[pickup].name,

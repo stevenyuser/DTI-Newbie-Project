@@ -1,5 +1,5 @@
 import * as cheerio from "cheerio";
-import { C2CLocations, OurBusLocations, BusRoute, MegabusLocations } from "../../common/types";
+import { C2CLocations, OurBusLocations, BusRoute, MegabusLocations, FlixbusLocations } from "../../common/types";
 import { time12to24, time12to24Add5, stringifyC2CLocation } from "../utils/helper.utils";
 
 // only scrape C2C for:
@@ -166,4 +166,42 @@ export const scrapeMegabus = async (pickup: MegabusLocations, dropoff: MegabusLo
             "destination": destination.cityName,
         }
     ));
+}
+
+export const scrapeFlixbus = async (pickup: FlixbusLocations, dropoff: FlixbusLocations, date: Date): Promise<BusRoute[]> => {
+    const dateString = new Intl.DateTimeFormat("de-DE", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+    }).format(date);
+
+    const url = `https://global.api.flixbus.com/search/service/v4/search?from_city_id=${pickup}&to_city_id=${dropoff}&departure_date=${dateString}&products=%7B%22adult%22%3A1%7D&currency=USD&locale=en_US&search_by=cities&include_after_midnight_rides=1`
+
+    const response = await fetch(url);
+
+    const data = await response.json();
+
+    const cities: any = data.cities;
+
+    const fee: number = Number(data.global_platform_fees[0].fee_amount) || 0;
+
+    const results: any = Object.values(data.trips[0].results);
+
+    if(results === undefined || cities === undefined) {
+        return [];
+    }
+
+    return results.map(({ departure, arrival, price, available }): BusRoute => {
+        const total = Number((price.total + fee).toFixed(2));
+
+        return {
+            "numSeats": available.seats,
+            "startTime": departure.date.substring(0,19),
+            "endTime": arrival.date.substring(0,19),
+            "price": total,
+            "busCompanyId": "Flixbus",
+            "origin": cities[pickup].name,
+            "destination": cities[dropoff].name,
+        }
+    });
 }

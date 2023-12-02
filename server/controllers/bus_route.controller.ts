@@ -1,8 +1,8 @@
-import { GeneralLocations, C2CLocations, OurBusLocations, BusRoute, MegabusLocations } from "../../common/types";
-import { scrapeC2C, scrapeMegabus, scrapeOurBus } from "../services/scraping.service";
+import { GeneralLocations, C2CLocations, OurBusLocations, BusRoute, MegabusLocations, FlixbusLocations } from "../../common/types";
+import { scrapeC2C, scrapeFlixbus, scrapeMegabus, scrapeOurBus } from "../services/scraping.service";
 
 export const getBusRoutes = async (origin: GeneralLocations, destination: GeneralLocations, date: Date) => {
-    let ourbusData, c2cData, megabusData: BusRoute[];
+    let ourbusData, c2cData, megabusData, flixbusData: BusRoute[];
 
     if(origin === GeneralLocations.Ithaca as GeneralLocations && destination === GeneralLocations.NYC) { // ITH -> NYC
         let [ourbusDataFortLee, ourbusDataNYC] = await Promise.all([
@@ -15,6 +15,8 @@ export const getBusRoutes = async (origin: GeneralLocations, destination: Genera
 
         megabusData = await scrapeMegabus(MegabusLocations.Ithaca, MegabusLocations.NYC, date);
 
+        flixbusData = await scrapeFlixbus(FlixbusLocations.Ithaca, FlixbusLocations.NYC, date);
+
     } else { // NYC -> ITH
         let [ourbusDataFortLee, ourbusDataNYC] = await Promise.all([
             scrapeOurBus(OurBusLocations.FortLee, OurBusLocations.Ithaca, date),
@@ -26,9 +28,11 @@ export const getBusRoutes = async (origin: GeneralLocations, destination: Genera
 
         megabusData = await scrapeMegabus(MegabusLocations.NYC, MegabusLocations.Ithaca, date);
 
+        flixbusData = await scrapeFlixbus(FlixbusLocations.NYC, FlixbusLocations.Ithaca, date);
+
     }
 
-    const busRoutes: BusRoute[] = ourbusData.concat(c2cData).concat(megabusData);
+    const busRoutes: BusRoute[] = ourbusData.concat(c2cData).concat(megabusData).concat(flixbusData);
 
     if (busRoutes === undefined) {
         return [];

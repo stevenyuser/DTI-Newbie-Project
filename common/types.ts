@@ -73,6 +73,11 @@ export enum MegabusLocations {
   NYC = "123"
 }
 
+export enum FlixbusLocations {
+  Ithaca = "99c4f86c-3ecb-11ea-8017-02437075395e",
+  NYC = "c0a47c54-53ea-46dc-984b-b764fc0b2fa9"
+}
+
 export enum GeneralLocations {
   NYC = "NYC",
   Ithaca = "Ithaca"

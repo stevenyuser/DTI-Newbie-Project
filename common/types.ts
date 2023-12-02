@@ -44,7 +44,7 @@ export type Review = {
 };
 
 export type BusCompany = {
-  id: number;
+  id: string;
   name: string;
   websiteUrl: string;
   description: string;

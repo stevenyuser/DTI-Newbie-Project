@@ -37,7 +37,8 @@ export default function CreateReviewPage() {
             body: JSON.stringify(review)
         });
 
-        router.push("/");
+        // router.push("/");
+        router.back();
     }
 
     return (

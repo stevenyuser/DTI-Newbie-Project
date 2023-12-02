@@ -29,8 +29,8 @@ export default function ReviewCard({ review }: ReviewCardProps) {
 
                 {!(review.rideDate === null && review.ridePrice === null && review.rideOrigin === null && review.rideDestination === null) &&
                 <div className="text-sm flex flex-row ml-1 divide-x-2 divide-solid divide-slate-500 text-slate-500">
-                    <p className="px-2 first:pl-0">Ride Date: {new Date(review.rideDate ?? Date.now()).toLocaleDateString("en-US", { month: "long", "day": "numeric", "year": "numeric" })}</p>
-                    <p className="px-2">Price: ${review.ridePrice}</p>
+                    {/* <p className="px-2 first:pl-0">Ride Date: {new Date(review.rideDate ?? Date.now()).toLocaleDateString("en-US", { month: "long", "day": "numeric", "year": "numeric" })}</p> */}
+                    <p className="px-2 first:pl-0">Price: ${review.ridePrice}</p>
                     <p className="px-2 last:pr-0">
                         {review.rideOrigin} 
                         <ArrowLongRightIcon className="h-5 w-5 inline-block mx-1" />

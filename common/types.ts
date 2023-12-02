@@ -36,10 +36,8 @@ export type Review = {
   title: string;
   rating: number;
   reviewText: string;
-  likes: number;
 
   userName: string;
-  netId: string;
   reviewDateTime: string,
 };
 

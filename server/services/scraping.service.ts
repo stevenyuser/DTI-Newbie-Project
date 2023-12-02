@@ -17,6 +17,10 @@ export const scrapeC2C = async (pickup: C2CLocations, dropoff: C2CLocations, dat
         day: "2-digit"
     }).format(date);
 
+    const ithToNyc = pickup === C2CLocations.IthacaNorthCampus && dropoff === C2CLocations.NYCCornellClub;
+
+    console.log(ithToNyc);
+
     const response = await fetch('https://c2cbus.ipp.cornell.edu/mobile/?a=mobile', {
         method: 'POST',
         headers: {

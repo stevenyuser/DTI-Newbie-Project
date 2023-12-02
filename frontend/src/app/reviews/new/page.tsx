@@ -2,11 +2,15 @@
 
 import { useState } from "react";
 import { Review } from "../../../../../common/types";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Rating from "@mui/material/Rating";
 
 export default function CreateReviewPage() {
     const router = useRouter();
+
+    const searchParams = useSearchParams();
+
+    const busCompany = searchParams.get("busCompany") ?? "C2C";
 
     const [rating, setRating] = useState<number>(0);
 
@@ -67,7 +71,7 @@ export default function CreateReviewPage() {
                                         id="company"
                                         name="company"
                                         className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-                                        defaultValue={"C2C"}
+                                        defaultValue={busCompany}
                                         onChange={(e) => {
                                             let newReview = review;
                                             newReview.busCompanyId = e.target.value;

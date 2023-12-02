@@ -7,7 +7,6 @@ import { GeneralLocations, BusRoute, BusCompanyEnum, BusCompanyIdEnum } from "..
 
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import BusRouteCard from "@/components/BusRouteCard";
-import { urlCompanyFormat } from "@/utils/helper.utils";
 
 async function getAverageRating(busCompanyId: BusCompanyIdEnum) {
   const res = await fetch(`http://0.0.0.0:8080/api/companies/${busCompanyId}/averageRating/`);

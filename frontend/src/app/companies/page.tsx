@@ -3,8 +3,6 @@
 import React, { useEffect, useState } from "react";
 import BusCompanyCard from "@/components/BusCompanyCard";
 import { BusCompany, BusCompanyEnum } from "../../../../common/types";
-import { urlCompanyFormat } from "@/utils/helper.utils";
-
 
 async function getAllBusCompanies() {
     const res = await fetch("http://0.0.0.0:8080/api/companies");

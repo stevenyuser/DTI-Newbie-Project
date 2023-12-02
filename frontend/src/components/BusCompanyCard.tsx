@@ -1,4 +1,3 @@
-import { urlCompanyFormat } from "@/utils/helper.utils";
 import { BusCompany, BusCompanyEnum } from "../../../common/types";
 import { LinkIcon } from "@heroicons/react/24/outline";
 import Rating from '@mui/material/Rating';

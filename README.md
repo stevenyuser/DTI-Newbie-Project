@@ -1,5 +1,5 @@
 # CUSoon
-Created by Jasmine Li and Steven Yu as final project for FA2023 DTI new developer onboarding.
+Created by Jasmine Li and Steven Yu as final onboarding project for FA2023 Cornell DTI new developers.
 
 ## Description
 CUSoon is a bus metasearch engine and reviews website that enables Cornell community members to search for and compare bus tickets from leading commercial and Cornell providers.

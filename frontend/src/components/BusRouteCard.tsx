@@ -1,6 +1,6 @@
 import { BusRoute, BusCompanyEnum } from "../../../common/types";
 import { ArrowLongRightIcon, CalendarIcon, ClockIcon, TicketIcon } from "@heroicons/react/24/outline";
-import { companyNameFromId, formatDate, formatTime } from "@/utils/helper.utils";
+import { companyNameFromId, formatDate, formatTime } from "../utils/helper.utils";
 import Link from "next/link";
 import Rating from '@mui/material/Rating';
 

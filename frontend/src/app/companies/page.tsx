@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from "react";
-import BusCompanyCard from "@/components/BusCompanyCard";
+import BusCompanyCard from "../../components/BusCompanyCard";
 import { BusCompany, BusCompanyEnum } from "../../../../common/types";
 
 async function getAllBusCompanies() {

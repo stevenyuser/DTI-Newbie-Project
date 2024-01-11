@@ -1,9 +1,9 @@
 'use client'
 
 import { Metadata } from "next"
-import BusCompanyHeader from "@/components/BusCompanyHeader";
-import BusCompanyHighlights from "@/components/BusCompanyHighlights";
-import BusCompanyReviews from "@/components/BusCompanyReviews";
+import BusCompanyHeader from "../../../components/BusCompanyHeader";
+import BusCompanyHighlights from "../../../components/BusCompanyHighlights";
+import BusCompanyReviews from "../../../components/BusCompanyReviews";
 import { useEffect, useState } from "react";
 import { BusCompany } from "../../../../../common/types";
 

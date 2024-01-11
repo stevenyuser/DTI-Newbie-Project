@@ -45,7 +45,7 @@ export default function Companies() {
                     <ul role="list" className="space-y-3">
                         {!isLoading &&
                             Object.values(busCompanies).map((busCompany) => {
-                                return <BusCompanyCard company={busCompany} />
+                                return <BusCompanyCard key={busCompany.id} company={busCompany} />
                             })
                         }
                     </ul>

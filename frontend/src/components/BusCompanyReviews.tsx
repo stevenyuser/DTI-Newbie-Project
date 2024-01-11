@@ -67,8 +67,7 @@ export default function BusCompanyReviews({ company }: BusCompanyReviewsProps) {
                         <ul role="list" className="space-y-3 py-12">
                             {!isLoading &&
                                 Object.values(reviews).map((review) => {
-                                    return <ReviewCard review={review} />
-                                    
+                                    return <ReviewCard key={review.reviewDateTime} review={review} />
                                 })
                             }
                         </ul>
